@@ -1,0 +1,38 @@
+simulation:
+        image: rockylinux:8
+        tags:
+                - High
+        variables:
+                REPO: "powertools"
+        script:
+                - yum -y install make git python3-pip python3-devel libX11 ncurses-compat-libs glibc.i686 gcc gcc-c++ libXext libXft boost-devel langpacks-en which
+                - yum -y --enablerepo=$REPO install libstdc++-static
+                - ln -s /usr/bin/python3 /usr/bin/python
+                - export LC_ALL=C
+                - pip3 install --user git+https://github.com/cocotb/cocotb#egg=cocotb[bus] cocotbext-axi
+                - export PATH=/root/.local/bin/:$PATH
+                - export PATH="/opt/cad/mentor/questa/questa-2021.3/questasim/bin:${PATH}"
+                - export MGLS_LICENSE_FILE=/opt/cad/keys/mentor
+                - export PATH="/opt/cad/xilinx/vitis/Vivado/2021.2/bin:${PATH}"
+                - export MTI_BYPASS_SC_PLATFORM_CHECK=1
+                - make simlib_questa
+                - make vivado_prj
+                - make test
+        artifacts:
+                when: always
+                reports:
+                        junit: results.xml
+
+simulation_rocky9:
+        extends: simulation
+        image: rockylinux:9
+        variables:
+                REPO: "crb"
+        before_script:
+                - yum -y install epel-release
+
+simulation_f38:
+        extends: simulation
+        image: fedora:38
+        variables:
+                REPO: "fedora-modular"
