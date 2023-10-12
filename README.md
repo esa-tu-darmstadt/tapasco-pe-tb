@@ -15,7 +15,7 @@ This project aims to make the simulation of processing elements (PEs) for [TaPaS
 
 Setup simulation:
 ```bash
-pip3 install --user git+https://github.com/cocotb/cocotb#egg=cocotb[bus] cocotbext-axi
+pip3 install --user cocotb-bus cocotbext-axi
 # ensure that cocotb-config is on path
 # build xilinx IP for simulation:
 make simlib_questa
