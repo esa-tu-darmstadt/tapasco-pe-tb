@@ -9,7 +9,7 @@ simulation:
                 - yum -y --enablerepo=$REPO install libstdc++-static
                 - ln -s /usr/bin/python3 /usr/bin/python
                 - export LC_ALL=C
-                - pip3 install --user git+https://github.com/cocotb/cocotb#egg=cocotb[bus] cocotbext-axi
+                - pip3 install --user cocotb-bus cocotbext-axi
                 - export PATH=/root/.local/bin/:$PATH
                 - export PATH="/opt/cad/mentor/questa/questa-2021.3/questasim/bin:${PATH}"
                 - export MGLS_LICENSE_FILE=/opt/cad/keys/mentor
