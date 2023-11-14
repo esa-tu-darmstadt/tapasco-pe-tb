@@ -1,4 +1,5 @@
 TOPLEVEL_LANG ?= verilog
+MODULE ?= tapasco-tests
 
 SIM = questa
 MODELSIM = $(PWD)/simulate_testbench.sim/sim_1/behav/questa/modelsim.ini
@@ -16,7 +17,6 @@ GUI:=0
 
 RTL_LIBRARY = xil_defaultlib
 TOPLEVEL := pe
-MODULE   := tapasco-tests
 
 QUESTA_HOME := $(abspath $(dir $(shell which vsim))/../)
 ifeq ($(QUESTA_HOME),)

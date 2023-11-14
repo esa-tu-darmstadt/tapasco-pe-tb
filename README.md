@@ -25,10 +25,12 @@ make vivado_prj
 
 Then run the simulation:
 ```bash
-make
+MODULE=tapasco-tests make
 ```
 
 Note: Some changes require a `make clean`
+
+For [TaPaSCo RISC-V](https://github.com/esa-tu-darmstadt/tapasco-riscv) PEs, the `tapasco-riscv-tests` module can be used.
 
 GUI can be enabled by setting the value in the Makefile to 1.
 
