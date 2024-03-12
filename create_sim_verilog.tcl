@@ -13,7 +13,6 @@ set_property target_simulator Questa [current_project]
 set_property compxlib.questa_compiled_library_dir {compile_simlib/questa} [current_project]
 
 # Options that will be added to vlog calls in `simulate_testbench.sim/sim_1/behav/questa/pe_compile.do`
-# TODO: Make configurable (+initmem+0 required for NaxRiscv)
-set_property questa.compile.vlog.more_options "+initmem+0" [get_filesets [current_fileset -simset]]
+set_property -name questa.compile.vlog.more_options -value "$::env(VLOG_MOREARGS)" -objects [get_filesets [current_fileset -simset]]
 
 launch_simulation -scripts_only -absolute_path
