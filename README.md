@@ -30,9 +30,9 @@ MODULE=tapasco-tests make
 
 Note: Some changes require a `make clean`
 
-For [TaPaSCo RISC-V](https://github.com/esa-tu-darmstadt/tapasco-riscv) PEs, the `tapasco-riscv-tests` module can be used.
-
 GUI can be enabled by setting the value in the Makefile to 1.
+
+For [TaPaSCo RISC-V](https://github.com/esa-tu-darmstadt/tapasco-riscv) PEs, the `tapasco-riscv-tests` module can be used. For a simple build environment for compatible RISC-V binaries, see [`programming/examples/PE`](https://github.com/esa-tu-darmstadt/tapasco-riscv/tree/master/programming/examples/PE) in the TaPaSCo RISC-V repository.
 
 _If there are any problems, use `.gitlab-ci.yml` as a guideline._
 

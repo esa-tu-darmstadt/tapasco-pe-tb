@@ -6,40 +6,9 @@ from cocotb.clock import Clock
 from cocotb.result import TestFailure, TestSuccess
 from cocotb.triggers import Timer, RisingEdge, FallingEdge
 from cocotbext.axi import AxiBus, AxiLiteBus, AxiMaster, AxiLiteMaster, AxiLiteRam
+from testbench_util import find_clk, find_rstn, find_axi_s_ctrl
 
 CLK_PERIOD = 1000
-
-def find_clk(dut):
-    dut._discover_all()
-    for name in dut._sub_handles:
-        if 'clk' in name.lower() and not 'axi' in name.lower():
-            return dut._sub_handles[name]
-    raise Exception
-
-def find_rstn(dut):
-    dut._discover_all()
-    for name in dut._sub_handles:
-        if ('reset_n' in name.lower() or 'resetn' in name.lower() or 'rst_n' in name.lower() or 'rstn' in name.lower()) and not 'axi' in name.lower():
-            return dut._sub_handles[name]
-    raise Exception
-
-def find_axi_s_ctrl(dut):
-    dut._discover_all()
-    for name in dut._sub_handles:
-        if 'arvalid' in name.lower() and 's_axi' in name.lower() and not 'bram' in name.lower():
-            return '_'.join(name.split('_')[0:-1])
-
-def find_axi_s_bram(dut):
-    dut._discover_all()
-    for name in dut._sub_handles:
-        if 'arvalid' in name.lower() and 's_axi' in name.lower() and 'bram' in name.lower():
-            return '_'.join(name.split('_')[0:-1])
-
-def find_axi_m(dut):
-    dut._discover_all()
-    for name in dut._sub_handles:
-        if 'arvalid' in name.lower() and 'm_axi' in name.lower():
-            return '_'.join(name.split('_')[0:-1])
 
 @cocotb.test()
 def run_test(dut):
