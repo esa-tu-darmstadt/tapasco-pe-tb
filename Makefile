@@ -1,4 +1,5 @@
 TOPLEVEL_LANG ?= verilog
+MODULE ?= tapasco-tests
 
 SIM = questa
 MODELSIM = $(PWD)/simulate_testbench.sim/sim_1/behav/questa/modelsim.ini
@@ -12,11 +13,13 @@ SIM_ARGS=-lib xil_defaultlib pe_opt -suppress 7061 -suppress 12003 -onfinish exi
 include $(shell cocotb-config --makefiles)/Makefile.sim
 
 RUN_ARGS=-noautoldlibpath
+# Options that will be added to vlog calls in `simulate_testbench.sim/sim_1/behav/questa/pe_compile.do`
+#VLOG_MOREARGS=+initmem+0
+
 GUI:=0
 
 RTL_LIBRARY = xil_defaultlib
 TOPLEVEL := pe
-MODULE   := tapasco-tests
 
 QUESTA_HOME := $(abspath $(dir $(shell which vsim))/../)
 ifeq ($(QUESTA_HOME),)
@@ -43,7 +46,7 @@ clean_viv: clean
 	rm -rf simulate_testbench.*
 
 vivado_prj: clean_viv
-	vivado -source create_sim_verilog.tcl -mode batch
+	VLOG_MOREARGS="$(VLOG_MOREARGS)" vivado -source create_sim_verilog.tcl -mode batch
 	mkdir simulate_testbench.sim/sim_1/behav/questa/modelsim_lib/
 	mkdir sim_build
 	cp compile_simlib/questa/modelsim.ini sim_build/
